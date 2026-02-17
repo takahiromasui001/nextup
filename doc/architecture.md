@@ -13,7 +13,7 @@
 ## 2. 認証
 
 - **OmniAuth + Google OAuth 2.0**
-- Userモデルに `provider`、`uid`、`email`、`name`、`avatar_url` を保持
+- Userモデルに `provider`、`uid`、`email`、`name` を保持
 - セッション管理はRails標準のcookieベースセッション
 
 ---
@@ -27,7 +27,6 @@
 - `uid`（外部ID）: string
 - `email`（メールアドレス）: string
 - `name`（表示名）: string
-- `avatar_url`（アバターURL）: string（nullable）
 - `now_item_id`（Now対象）: Item FK or null（1件だけ構造的に保証）
   - **FK制約: ON DELETE SET NULL**
 
@@ -51,7 +50,7 @@
   - `done`（完了）
   - `archived`（アーカイブ/捨て）
 - `snooze_until`（あとで期限）: datetime or null
-- `created_at`, `updated_at`, `last_opened_at`
+- `created_at`, `updated_at`
 
 ---
 

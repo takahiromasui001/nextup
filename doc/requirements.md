@@ -84,7 +84,6 @@ Deckに出すのは：
 - `open`（開く）
   - カードタップ：詳細画面へ遷移
   - URLありの場合はカード上にリンクボタンを表示。タップで新規タブでURLを開く
-  - 実行時 `last_opened_at` 更新
 - `pin_now`（いまやる）
   - `user.now_item_id = item.id`
   - 既にNowがある場合は「入れ替え（置換）」確認（後述）
@@ -136,7 +135,7 @@ Nowがある状態で別のItemを `pin_now` したら：
 ## 6. 詳細画面の仕様
 
 - Deckのカードタップ（openアクション）またはHistory等から遷移
-- **表示項目**: title、url（リンク）、memo、action_type、time_bucket、energy、status、created_at、last_opened_at
+- **表示項目**: title、url（リンク）、memo、action_type、time_bucket、energy、status、created_at
 - **編集**: title、url、memo、action_type、time_bucket、energy を編集可能
 - **アーカイブ**: 詳細画面内に「アーカイブ」ボタンを配置（archiveの唯一の導線）
   - `status = archived` に更新
