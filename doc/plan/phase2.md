@@ -9,7 +9,7 @@
 ## 2-2. タブナビゲーション（下部固定）
 
 - 共通レイアウト（`application.html.erb`）に下部固定タブバーを配置
-- タブ: Deck / Now / Add / History
+- タブ: Deck / Add / Items
 - モバイルファースト: `position: fixed; bottom: 0` で画面下部に常駐
 - 現在のタブをハイライト
 

@@ -13,17 +13,16 @@
 
 ---
 
-## 1. 画面構成（最小4タブ＋詳細画面）
+## 1. 画面構成（3タブ＋詳細画面）
 
 1. **Deck（候補デッキ）**
    - フィルタ後に1枚カードをスワイプして選ぶ
-2. **Now（いまやる）**
-   - ピン留めした1件を固定表示（目立つ）
-3. **Add（追加）**
+   - Now（いまやる）がある場合はDeck上部に固定ヘッダーで表示
+2. **Add（追加）**
    - URL/メモを最短で登録
-4. **History（履歴）**
-   - done/archivedになったItemの一覧（タブで分離）
-5. **詳細画面**（タブではなく遷移先）
+3. **Items（一覧）**
+   - 全statusのItemをタブ切替で一覧表示（active / snoozed / done / archived）
+4. **詳細画面**（タブではなく遷移先）
    - Itemの詳細表示・編集・アーカイブ操作を行う画面
 
 ---
@@ -143,13 +142,13 @@ Deckに出すのは：
 
 ---
 
-## 6. Now（いまやる）の仕様（1件固定）
+## 6. Now（いまやる）の仕様（1件固定・Deck上部ヘッダー）
 
 ### 表示
 
 - Now = `user.now_item_id` が指すItem **1件**
 - Now中のItemのstatusは **activeのまま**（Deckからはクエリで除外）
-- Deck上部に **Now固定ヘッダー**を表示（Nowがある時だけ）
+- **Deck上部にNow固定ヘッダーとして表示**（Nowがある時だけ。専用タブは設けない）
   - 表示：タイトル / action_type / time
   - ボタン：`open`（開く） / `unpin`（外す） / `done`（完了）
 
@@ -171,10 +170,11 @@ Nowがある状態で別のItemを `pin_now` したら：
 
 ## 7. 詳細画面の仕様
 
-- Deckのカードタップ（openアクション）またはHistory等から遷移
+- Deckのカードタップ（openアクション）またはItems一覧等から遷移
 - **表示項目**: title、url（リンク）、memo、action_type、time_bucket、energy、status、created_at
 - **編集**: title、url、memo、action_type、time_bucket、energy を編集可能
 - **アーカイブ**: 詳細画面内に「アーカイブ」ボタンを配置（archiveの唯一の導線）
+  - `status` が `active` または `snoozed` の場合のみ表示（`done` のItemにはアーカイブボタンを出さない）
   - `status = archived` に更新
   - Nowに設定中の場合は `user.now_item_id = null` も同時に実行
 
@@ -199,8 +199,8 @@ Nowがある状態で別のItemを `pin_now` したら：
 
 - Add（URL/メモ、action_type+time+energy、手動ペースト）
 - Deck（任意フィルタ＋シャッフル＋スワイプ＋open/pin/snooze/done）
-- Now（1件固定＋Deck上部に目立つ固定ヘッダー＋unpin/replace）
-- History（done/archivedをタブで分離した一覧表示、新しい順）
+- Now（1件固定＋Deck上部に固定ヘッダー＋unpin/replace）
+- Items（全statusをタブ切替で一覧表示、新しい順）
 - 詳細画面（表示・編集・アーカイブ）
 
 ### MVP外（将来検討）
@@ -209,7 +209,7 @@ Nowがある状態で別のItemを `pin_now` したら：
 - プッシュ通知
 - 長期放置Itemのレビュー促進
 - PWAオフライン対応
-- Historyからの復活（done/archived → active）
+- Itemsからの復活（done/archived → active）
 - マルチデバイス同時操作の競合制御
 - 詳細画面にスレッド形式のメモ追加機能
 
