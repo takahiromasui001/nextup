@@ -6,7 +6,8 @@
 2. i18n設定（ja.yml、デフォルトlocale: ja）
 3. OmniAuth Google認証 + Userモデル（`now_item_id` 含む）
 4. Itemモデル（enum, バリデーション, FK）+ マイグレーション
-5. seedデータ（各status・属性パターンを網羅）
+5. CI・静的解析・テスト設定（RuboCop + RSpec + GitHub Actions）
+6. seedデータ（各status・属性パターンを網羅）
 
 ## Phase 2: Deck（候補デッキ）
 

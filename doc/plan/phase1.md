@@ -64,7 +64,40 @@
     - `energy`: low, mid, high
     - `status`: active, snoozed, done, archived
 
-## 1-5. seedデータ
+## 1-5. CI・静的解析・テスト設定
+
+### RuboCop
+
+- Gem: `rubocop-rails-omakase`
+- `.rubocop.yml`:
+  ```yaml
+  inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+
+  Style/StringLiterals:
+    EnforcedStyle: single_quotes
+    Exclude:
+      - 'Gemfile'
+      - 'config/**/*'
+
+  Layout/SpaceInsideArrayLiteralBrackets:
+    Enabled: false
+  ```
+
+### RSpec
+
+- Gem: `rspec-rails`（+ `factory_bot_rails`）
+- `rails generate rspec:install` で初期設定
+- `spec/rails_helper.rb` に FactoryBot の設定を追加
+
+### GitHub Actions
+
+- `.github/workflows/ci.yml` を作成
+- ジョブ:
+  - `rubocop`: `bundle exec rubocop`
+  - `rspec`: `bundle exec rspec`
+- トリガー: push / pull_request
+
+## 1-6. seedデータ
 
 - テスト用User 1名（開発環境用の固定ユーザー）
 - Item 10〜15件程度、以下のパターンを網羅。それぞれ3件ずつ:
