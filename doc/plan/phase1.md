@@ -11,6 +11,7 @@
 
 - Gem: `omniauth-google-oauth2`, `omniauth-rails_csrf_protection`
 - マイグレーション:
+
   ```
   users
     provider:string  NOT NULL
@@ -23,6 +24,7 @@
 
   - `now_item_id` のFK制約はItemテーブル作成後に追加（1-3で同時対応）
   - unique index: `[provider, uid]`
+
 - Userモデル: `belongs_to :now_item, class_name: 'Item', optional: true`
 - SessionsController: `create`（コールバック）/ `destroy`（ログアウト）
 - `current_user` ヘルパー + 未ログイン時リダイレクト
@@ -30,6 +32,7 @@
 ## 1-3. Itemモデル + マイグレーション
 
 - マイグレーション:
+
   ```
   items
     user_id:bigint      NOT NULL, FK → users
@@ -46,6 +49,7 @@
 
   - index: `[user_id, status]`
   - `users.now_item_id` へのFK制約もここで追加
+
 - Itemモデル:
   - `belongs_to :user`
   - `validates :title, presence: true`
@@ -70,6 +74,7 @@
 
 - Gem: `rubocop-rails-omakase`
 - `.rubocop.yml`:
+
   ```yaml
   inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
@@ -86,8 +91,11 @@
 ### RSpec
 
 - Gem: `rspec-rails`（+ `factory_bot_rails`）
+- 他にも以下のGemは入れておく。
+  - faker, shoulda-matchers, capybara, selenium-webdriver,rspec-parameterized
 - `rails generate rspec:install` で初期設定
 - `spec/rails_helper.rb` に FactoryBot の設定を追加
+- User/Item モデルのspecを作成。
 
 ### GitHub Actions
 
