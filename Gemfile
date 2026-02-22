@@ -31,6 +31,10 @@ gem "solid_cable"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# OmniAuth Google OAuth2 authentication
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
