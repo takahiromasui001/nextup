@@ -31,6 +31,13 @@ gem "solid_cable"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# OmniAuth Google OAuth2 authentication
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
+# Japanese locale for Rails
+gem "rails-i18n"
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
@@ -38,6 +45,8 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 group :development, :test do
+  gem "dotenv-rails"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
