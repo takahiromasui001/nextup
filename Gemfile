@@ -35,6 +35,9 @@ gem "bootsnap", require: false
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
+# Japanese locale for Rails
+gem "rails-i18n"
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 

@@ -29,7 +29,7 @@
 - SessionsController: `create`（コールバック）/ `destroy`（ログアウト）
 - `current_user` ヘルパー + 未ログイン時リダイレクト
 
-## 1-3. Itemモデル + マイグレーション
+## 1-3. Itemモデル + マイグレーション[DONE]
 
 - マイグレーション:
 
@@ -59,7 +59,7 @@
     - `energy`: low, mid, high
     - `status`: active, snoozed, done, archived
 
-## 1-4. i18n設定
+## 1-4. i18n設定[DONE]
 
 - `config/locales/ja.yml` を作成
 - 対象（MVP最小限）:

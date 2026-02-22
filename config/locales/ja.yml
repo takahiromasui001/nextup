@@ -1,0 +1,49 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      item: 'アイテム'
+    attributes:
+      user:
+        provider: 'プロバイダ'
+        uid: 'UID'
+        email: 'メールアドレス'
+        name: '名前'
+      item:
+        title: 'タイトル'
+        url: 'URL'
+        memo: 'メモ'
+        action_type: '行動タイプ'
+        time_bucket: '所要時間'
+        energy: '気力'
+        status: '状態'
+        snooze_until: 'スヌーズ期限'
+  enums:
+    item:
+      action_type:
+        read: '読む'
+        watch: '観る'
+        do: 'やる'
+        think: '考える'
+      time_bucket:
+        five: '5分'
+        ten: '10分'
+        twenty: '20分'
+        forty: '40分'
+        sixty: '60分'
+        sixty_plus: '60分以上'
+      energy:
+        low: '低'
+        mid: '中'
+        high: '高'
+      status:
+        active: '候補'
+        snoozed: 'あとで'
+        done: '完了'
+        archived: 'アーカイブ'
+  flash:
+    pin_created: 'Nowにセットしました'
+    pin_replaced: 'Nowを入れ替えました'
+    pin_destroyed: 'Nowを外しました'
+    snoozed: '%{until}までスヌーズしました'
+    done: '完了しました'
