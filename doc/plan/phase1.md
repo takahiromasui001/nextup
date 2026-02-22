@@ -7,7 +7,7 @@
   - `config.time_zone = 'Tokyo'`
   - `config.i18n.default_locale = :ja`
 
-## 1-2. OmniAuth Google認証 + Userモデル
+## 1-2. OmniAuth Google認証 + Userモデル [DONE]
 
 - Gem: `omniauth-google-oauth2`, `omniauth-rails_csrf_protection`
 - マイグレーション:
