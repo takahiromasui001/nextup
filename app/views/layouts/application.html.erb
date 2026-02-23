@@ -23,9 +23,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-gray-100 min-h-screen">
+    <main class="container mx-auto px-4 pt-6 pb-20">
       <%= yield %>
     </main>
+    <% if current_user %>
+      <%= render 'shared/tab_bar' %>
+    <% end %>
   </body>
 </html>

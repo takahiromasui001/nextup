@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   before_action :require_login
+  before_action :restore_snoozed_items
 
   helper_method :current_user
 
@@ -17,5 +18,11 @@ class ApplicationController < ActionController::Base
 
   def require_login
     redirect_to login_path unless current_user
+  end
+
+  def restore_snoozed_items
+    return unless current_user
+
+    Items::SnoozeRestorer.new(current_user).restore
   end
 end
