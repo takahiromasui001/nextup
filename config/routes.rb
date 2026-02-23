@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'home#show'
 
+  resources :deck, only: [:index]
+  resources :items, only: [:index]
+
   # Authentication
   get '/login', to: 'sessions#new', as: :login
   get '/auth/:provider/callback', to: 'sessions#create'
