@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'home#show'
 
-  resources :deck, only: [:index]
+  resources :deck, only: %i[index show]
   resources :items, only: [:index]
 
   # Authentication
