@@ -14,28 +14,30 @@ RSpec.describe 'Deck画面', type: :system do
     visit '/auth/google_oauth2/callback'
   end
 
-  context 'フィルタチップ操作' do
+  context 'カード1枚表示' do
     before do
-      create(:item, user: user, action_type: :read, energy: :low)
-      create(:item, user: user, action_type: :watch, energy: :high)
+      create(:item, user:, title: 'テスト記事', action_type: :read, energy: :low)
+      create(:item, user:, title: '動画を見る', action_type: :watch, energy: :high)
       visit deck_index_path
     end
 
-    it 'Deck画面が表示される' do
-      expect(page).to have_content('2件のカードがあります')
+    it 'カードのタイトルが表示される' do
+      expect(page).to have_css('h2')
+      titles = ['テスト記事', '動画を見る']
+      displayed_title = page.find('h2').text
+      expect(titles).to include(displayed_title)
     end
 
     it 'フィルタチップをクリックするとURLにパラメータが付く' do
       click_link '読む'
       expect(current_url).to include('action_type=read')
-      expect(page).to have_content('1件のカードがあります')
+      expect(page).to have_content('テスト記事')
     end
 
     it '選択中のチップを再クリックで解除' do
       click_link '読む'
       click_link '読む'
       expect(current_url).not_to include('action_type=')
-      expect(page).to have_content('2件のカードがあります')
     end
   end
 
