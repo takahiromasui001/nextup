@@ -1,0 +1,33 @@
+<div class="flex items-center gap-2 text-xs text-gray-500 mb-4">
+  <span class="px-2 py-0.5 bg-gray-100 rounded-full"><%= I18n.t("enums.item.action_type.#{@card.action_type}") %></span>
+  <% if @card.time_bucket %>
+    <span class="px-2 py-0.5 bg-gray-100 rounded-full"><%= I18n.t("enums.item.time_bucket.#{@card.time_bucket}") %></span>
+  <% end %>
+</div>
+
+<div class="flex-1 flex items-center justify-center">
+  <h2 class="text-xl font-bold text-gray-800 text-center"><%= @card.title %></h2>
+</div>
+
+<div class="flex items-center justify-between mt-4">
+  <div>
+    <% if @card.energy %>
+      <span class="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full"><%= I18n.t("enums.item.energy.#{@card.energy}") %></span>
+    <% end %>
+  </div>
+  <div>
+    <% if @card.url.present? %>
+      <%= link_to 'Link', @card.url, target: '_blank', rel: 'noopener', class: 'text-xs text-blue-500 underline' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-4 text-center text-xs text-gray-400">
+  <% if @total <= 10 %>
+    <% @total.times do |i| %>
+      <span class="<%= i == @position ? 'text-gray-800' : '' %>">&#9679;</span>
+    <% end %>
+  <% else %>
+    <%= @position + 1 %> / <%= @total %>
+  <% end %>
+</div>
