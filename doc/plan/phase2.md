@@ -1,19 +1,19 @@
 # Phase 2: Deck（候補デッキ）
 
-## 2-1. snooze復帰の before_action
+## 2-1. snooze復帰の before_action [DONE]
 
 - `ApplicationController` に `before_action :restore_snoozed_items`
 - 処理: `current_user.items.where(status: :snoozed).where('snooze_until <= ?', Time.current).update_all(status: :active, snooze_until: nil)`
 - ログイン済みユーザーのみ実行
 
-## 2-2. タブナビゲーション（下部固定）
+## 2-2. タブナビゲーション（下部固定） [DONE]
 
 - 共通レイアウト（`application.html.erb`）に下部固定タブバーを配置
 - タブ: Deck / Add / Items
 - モバイルファースト: `position: fixed; bottom: 0` で画面下部に常駐
 - 現在のタブをハイライト
 
-## 2-3. Deck画面 — フィルタUI
+## 2-3. Deck画面 — フィルタUI [DONE]
 
 - `DeckController#index`
 - フィルタはDeck上部に横並びで配置（チップ or セレクト）
@@ -23,7 +23,7 @@
 - フィルタ変更時: Turbo Frameでカード部分のみ差し替え
 - フィルタ条件はクエリパラメータで管理（Deckを開くたびにリセット）
 
-## 2-4. 候補抽出クエリ + シャッフル
+## 2-4. 候補抽出クエリ + シャッフル [DONE]
 
 - 抽出条件:
   - `status: :active`
