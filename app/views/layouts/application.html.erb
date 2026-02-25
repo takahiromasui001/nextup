@@ -27,6 +27,7 @@
     <main class="container mx-auto px-4 pt-6 pb-20">
       <%= yield %>
     </main>
+    <div id="toast_container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2"></div>
     <% if current_user %>
       <%= render 'shared/tab_bar' %>
     <% end %>
