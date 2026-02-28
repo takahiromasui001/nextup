@@ -1,0 +1,7 @@
+<turbo-frame id="now_item">
+  <% if current_user.now_item %>
+    <div class="mb-2 p-2 bg-green-100 rounded text-sm">
+      Now: <%= current_user.now_item.title %>
+    </div>
+  <% end %>
+</turbo-frame>

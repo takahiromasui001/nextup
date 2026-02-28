@@ -1,13 +1,12 @@
 import { Controller } from '@hotwired/stimulus';
+import { slideOutHorizontal, slideOutVertical, snapBack } from 'helpers/card_animation';
 
 export default class extends Controller {
   static values = {
-    position: Number,
-    total: Number,
     nextUrl: String,
     prevUrl: String,
   };
-  static targets = ['upLabel', 'downLabel'];
+  static targets = ['upLabel', 'downLabel', 'pinForm'];
 
   connect() {
     this.startX = 0;
@@ -74,36 +73,44 @@ export default class extends Controller {
     const absX = Math.abs(this.currentX);
     const absY = Math.abs(this.currentY);
 
+    // 横スワイプ（カード切り替え）
     if (absX > absY && absX > this.threshold) {
       const direction = this.currentX < 0 ? -1 : 1;
       const url = this.currentX < 0 ? this.nextUrlValue : this.prevUrlValue;
       if (url) {
-        this._slideOut(direction, url);
+        slideOutHorizontal(this.element, direction);
+        // アニメーション後に次/前のカードを Turbo Frame で読み込む
+        setTimeout(() => {
+          const frame = document.querySelector('turbo-frame#deck_card');
+          if (frame) {
+            frame.src = url;
+          }
+        }, 200);
         return;
       }
     }
 
-    this._snapBack();
+    // 上スワイプ（Pin Now）
+    if (absY > absX && absY > this.threshold && this.currentY < 0) {
+      slideOutVertical(this.element, -1);
+      this.pinFormTarget.requestSubmit();
+      return;
+    }
+
+    // 下スワイプ（スヌーズプリセット表示）
+    if (absY > absX && absY > this.threshold && this.currentY > 0) {
+      this._resetLabels();
+      snapBack(this.element);
+      const preset = this.element.querySelector('[data-controller="snooze-preset"]');
+      if (preset) preset.classList.remove('hidden');
+      return;
+    }
+
+    this._resetLabels();
+    snapBack(this.element);
   }
 
-  _slideOut(direction, url) {
-    // カードを画面外へスライドさせる
-    const offscreen = direction * window.innerWidth;
-    this.element.style.transition = 'transform 0.3s ease-out';
-    this.element.style.transform = `translate(${offscreen}px, 0) rotate(${direction * 30}deg)`;
-
-    // アニメーション後に次/前のカードを Turbo Frame で読み込む
-    setTimeout(() => {
-      const frame = document.querySelector('turbo-frame#deck_card');
-      if (frame) {
-        frame.src = url;
-      }
-    }, 200);
-  }
-
-  _snapBack() {
-    this.element.style.transition = 'transform 0.3s ease-out';
-    this.element.style.transform = 'translate(0, 0) rotate(0deg)';
+  _resetLabels() {
     if (this.hasUpLabelTarget) this.upLabelTarget.style.opacity = 0;
     if (this.hasDownLabelTarget) this.downLabelTarget.style.opacity = 0;
   }
