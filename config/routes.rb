@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   root 'home#show'
 
   resources :deck, only: %i[index show]
+
+  namespace :deck do
+    resources :pins, only: [:create]
+    resources :snoozes, only: [:create]
+    resources :completions, only: [:create]
+  end
   resources :items, only: [:index]
 
   # Authentication
