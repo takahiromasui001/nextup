@@ -44,10 +44,9 @@
   - スワイプ方向に応じたアニメーション（カードがスライドアウト → 次カードが表示）
 - 候補0件: 空状態UIを表示
 
-## 2-6. カードアクション + スワイプアクション + トースト通知
+## 2-6. カードアクション + スワイプアクション + トースト通知 [DONE]
 
 - **上スワイプ → pin_now / 下スワイプ → snooze（プリセット選択へ）**
-- **カードタップ → 詳細画面へ遷移**
 - **pin_now**:
   - `user.now_item_id = item.id` に更新
   - Nowが既にある場合 → Phase 3（入れ替えダイアログ）で対応。Phase 2では単純に上書き
@@ -55,20 +54,14 @@
 - **snooze**:
   - スワイプ後にプリセット選択UI表示（明日 / 週末 / 来週）
   - `status = :snoozed`, `snooze_until` を設定
-  - Now中のItemの場合: `user.now_item_id = null`
   - トースト:「○○までスヌーズしました」
 - **done**:
   - ボタン操作（カード上に完了ボタン配置）
   - `status = :done`
-  - Now中のItemの場合: `user.now_item_id = null`
   - トースト:「完了しました」
 - アクション実行後: 次のカードを表示（リストから除去して次へ）
 - トースト: Stimulus controllerで一定時間後に自動消去
 
-## 2-7. カードタップ → 詳細画面遷移 + Now除外の適用
+## 2-7. Now除外の適用 [DONE]
 
-- **カードタップ → 詳細画面へ遷移**
-  - タップ検出（swipe_controller でドラッグ量が小さい場合をタップとみなす）
-  - 遷移先の詳細画面は別途設計
-- **Now除外の適用**（2-4 の未実装分）
-  - `DeckController#index` で `Items::DeckFilter.new(..., exclude_id: current_user.now_item_id)` を渡す
+- `DeckController#index` で `Items::DeckFilter.new(..., exclude_id: current_user.now_item_id)` を渡す
