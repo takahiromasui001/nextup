@@ -1,4 +1,7 @@
 ja:
+  date:
+    formats:
+      short: '%m/%d(%a)'
   activerecord:
     models:
       user: 'ユーザー'
@@ -41,6 +44,11 @@ ja:
         snoozed: 'あとで'
         done: '完了'
         archived: 'アーカイブ'
+  deck:
+    snooze_presets:
+      tomorrow: '明日'
+      weekend: '週末'
+      next_week: '来週'
   flash:
     pin_created: 'Nowにセットしました'
     pin_replaced: 'Nowを入れ替えました'
