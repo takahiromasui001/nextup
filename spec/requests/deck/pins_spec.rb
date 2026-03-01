@@ -27,7 +27,7 @@ RSpec.describe 'Deck::Pins', type: :request do
 
       before do
         user.update!(now_item: previous_item)
-        get deck_index_path
+        get deck_path
       end
 
       it '前の now_item をデッキに戻し、pin した item をセッションから除去する' do

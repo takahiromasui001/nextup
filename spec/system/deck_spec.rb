@@ -18,7 +18,7 @@ RSpec.describe 'Deck画面', type: :system do
     before do
       create(:item, user:, title: 'テスト記事', action_type: :read, energy: :low)
       create(:item, user:, title: '動画を見る', action_type: :watch, energy: :high)
-      visit deck_index_path
+      visit deck_path
     end
 
     it 'カードのタイトルが表示される' do
@@ -41,16 +41,31 @@ RSpec.describe 'Deck画面', type: :system do
     end
   end
 
+  context 'now_item がある場合' do
+    let!(:now_item) { create(:item, user:, title: '今やる', action_type: :read, energy: :low) }
+    let!(:deck_item) { create(:item, user:, title: '後で見る', action_type: :watch, energy: :high) }
+
+    before do
+      user.update!(now_item: now_item)
+      visit deck_path
+    end
+
+    it 'now_item はデッキ候補から除外される' do
+      expect(page).to have_content('Now: 今やる')
+      expect(page.find('h2').text).to eq('後で見る')
+    end
+  end
+
   context '空状態' do
     it '候補がない場合は空状態UIを表示' do
-      visit deck_index_path
+      visit deck_path
       expect(page).to have_content('候補がありません')
     end
   end
 
   context 'タブバー' do
     it '下部にタブバーが表示される' do
-      visit deck_index_path
+      visit deck_path
       expect(page).to have_link('Deck')
       expect(page).to have_link('Add')
       expect(page).to have_link('Items')
