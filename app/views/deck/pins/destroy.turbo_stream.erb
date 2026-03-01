@@ -4,3 +4,7 @@
 <%= turbo_stream.replace 'deck_card' do %>
   <%= render 'deck/card' %>
 <% end %>
+<%= turbo_stream.append 'toast_container' do %>
+  <%= render 'shared/toast', message: t('flash.pin_destroyed') %>
+<% end %>
+
