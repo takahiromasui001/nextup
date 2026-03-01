@@ -24,7 +24,7 @@ module Deck
       @card_ids.any?
     end
 
-    def to_a
+    def card_ids
       @card_ids
     end
   end

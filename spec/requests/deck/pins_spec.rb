@@ -21,29 +21,18 @@ RSpec.describe 'Deck::Pins', type: :request do
       expect(response.media_type).to eq('text/vnd.turbo-stream.html')
     end
 
-    context '既に now_item がある場合' do
+    context 'カードリスト更新が必要な場合' do
       let(:previous_item) { create(:item, user: user) }
+      let(:other_item) { create(:item, user: user) }
 
       before do
         user.update!(now_item: previous_item)
         get deck_index_path
       end
 
-      it '前の now_item がデッキに戻る' do
-        post deck_pins_path, params: { item_id: item.id }, as: :turbo_stream
+      it '前の now_item をデッキに戻し、pin した item をセッションから除去する' do
+        subject
         expect(session[:deck_card_ids]).to include(previous_item.id)
-      end
-    end
-
-    context 'セッションにカードがある場合' do
-      let(:other_item) { create(:item, user: user) }
-
-      before do
-        get deck_index_path
-      end
-
-      it 'セッションから除去される' do
-        post deck_pins_path, params: { item_id: item.id }, as: :turbo_stream
         expect(session[:deck_card_ids]).not_to include(item.id)
       end
     end

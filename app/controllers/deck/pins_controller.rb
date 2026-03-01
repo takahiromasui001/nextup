@@ -1,32 +1,19 @@
 module Deck
-  class PinsController < ApplicationController
+  class PinsController < BaseController
     def create
-      @item = current_user.items.find(params[:item_id])
-
-      card_list = build_card_list
+      set_item
+      update_card_list_for_pin
       current_user.update!(now_item: @item)
-
-      card_list.remove(@item.id)
-      session[:deck_card_ids] = card_list.to_a
-
-      set_card_state(card_list)
+      assign_card_view_data
     end
 
     private
 
-    def build_card_list
+    def update_card_list_for_pin
       card_list = CardList.new(session[:deck_card_ids])
-
-      return card_list unless current_user.now_item_id
-
-      card_list.restore(current_user.now_item_id)
-      card_list
-    end
-
-    def set_card_state(card_list)
-      @card = card_list.next_card
-      @position = card_list.any? ? 0 : nil
-      @total = card_list.size
+      card_list.restore(current_user.now_item_id) if current_user.now_item_id
+      card_list.remove(@item.id)
+      session[:deck_card_ids] = card_list.card_ids
     end
   end
 end
