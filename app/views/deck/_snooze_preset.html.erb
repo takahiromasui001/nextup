@@ -1,0 +1,14 @@
+<div data-controller="snooze-preset"
+     class="hidden absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center gap-3 z-20">
+  <p class="text-sm text-gray-500 mb-2">スヌーズ期間</p>
+  <% %w[tomorrow weekend next_week].each do |preset| %>
+    <%= form_with url: deck_snoozes_path, class: 'contents', data: { action: 'submit->snooze-preset#snooze' } do |f| %>
+      <%= f.hidden_field :item_id, value: @card.id %>
+      <%= f.hidden_field :preset, value: preset %>
+      <%= f.submit I18n.t("deck.snooze_presets.#{preset}"),
+            class: 'w-40 py-2 bg-orange-500 text-white rounded-lg text-sm font-medium cursor-pointer' %>
+    <% end %>
+  <% end %>
+  <button type="button" data-action="click->snooze-preset#cancel"
+          class="mt-1 text-sm text-gray-400 underline">キャンセル</button>
+</div>

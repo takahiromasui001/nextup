@@ -2,7 +2,7 @@
   <div class="flex flex-wrap gap-1.5">
     <% Item.action_types.each_key do |key| %>
       <%= link_to I18n.t("enums.item.action_type.#{key}"),
-            deck_index_path(filter_params_toggle(:action_type, key)),
+            deck_path(filter_params_toggle(:action_type, key)),
             class: "inline-block px-3 py-1.5 text-xs font-medium rounded-full border transition #{filter_chip_class(:action_type, key)}" %>
     <% end %>
   </div>
@@ -10,7 +10,7 @@
   <div class="flex flex-wrap gap-1.5">
     <% Item.time_buckets.each_key do |key| %>
       <%= link_to I18n.t("enums.item.time_bucket.#{key}"),
-            deck_index_path(filter_params_toggle(:time_bucket, key)),
+            deck_path(filter_params_toggle(:time_bucket, key)),
             class: "inline-block px-3 py-1.5 text-xs font-medium rounded-full border transition #{filter_chip_class(:time_bucket, key)}" %>
     <% end %>
   </div>
@@ -18,7 +18,7 @@
   <div class="flex flex-wrap gap-1.5">
     <% Item.energies.each_key do |key| %>
       <%= link_to I18n.t("enums.item.energy.#{key}"),
-            deck_index_path(filter_params_toggle(:energy, key)),
+            deck_path(filter_params_toggle(:energy, key)),
             class: "inline-block px-3 py-1.5 text-xs font-medium rounded-full border transition #{filter_chip_class(:energy, key)}" %>
     <% end %>
   </div>

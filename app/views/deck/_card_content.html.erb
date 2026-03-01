@@ -15,7 +15,9 @@
       <span class="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full"><%= I18n.t("enums.item.energy.#{@card.energy}") %></span>
     <% end %>
   </div>
-  <div>
+  <div class="flex items-center gap-3">
+    <%= button_to '完了', deck_completions_path(item_id: @card.id),
+          class: 'px-3 py-1 text-xs bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300' %>
     <% if @card.url.present? %>
       <%= link_to 'Link', @card.url, target: '_blank', rel: 'noopener', class: 'text-xs text-blue-500 underline' %>
     <% end %>

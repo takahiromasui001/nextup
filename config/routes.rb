@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
   root 'home#show'
 
-  resources :deck, only: %i[index show]
+  resource :deck, only: :show, controller: :deck do
+    resources :cards, only: :show, module: :deck, param: :position
+  end
+
+  namespace :deck do
+    resources :pins, only: [:create]
+    resources :snoozes, only: [:create]
+    resources :completions, only: [:create]
+  end
   resources :items, only: [:index]
 
   # Authentication

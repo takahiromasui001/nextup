@@ -64,3 +64,11 @@
   - トースト:「完了しました」
 - アクション実行後: 次のカードを表示（リストから除去して次へ）
 - トースト: Stimulus controllerで一定時間後に自動消去
+
+## 2-7. カードタップ → 詳細画面遷移 + Now除外の適用
+
+- **カードタップ → 詳細画面へ遷移**
+  - タップ検出（swipe_controller でドラッグ量が小さい場合をタップとみなす）
+  - 遷移先の詳細画面は別途設計
+- **Now除外の適用**（2-4 の未実装分）
+  - `DeckController#index` で `Items::DeckFilter.new(..., exclude_id: current_user.now_item_id)` を渡す
