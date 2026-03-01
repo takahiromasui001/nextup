@@ -1,0 +1,84 @@
+<%= form_with model: item, class: 'flex flex-col gap-6' do |f| %>
+  <%# Title %>
+  <div>
+    <%= f.label :title, 'Title', class: 'block text-sm font-medium text-gray-700 mb-1' %>
+    <%= f.text_field :title,
+          placeholder: 'e.g. Read this article',
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400' %>
+    <% if item.errors[:title].any? %>
+      <p class="mt-1 text-xs text-red-500"><%= item.errors[:title].first %></p>
+    <% end %>
+  </div>
+
+  <%# URL %>
+  <div>
+    <%= f.label :url, 'URL', class: 'block text-sm font-medium text-gray-700 mb-1' %>
+    <%= f.url_field :url,
+          placeholder: 'https://...',
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400' %>
+  </div>
+
+  <%# Memo %>
+  <div>
+    <%= f.label :memo, 'Memo', class: 'block text-sm font-medium text-gray-700 mb-1' %>
+    <%= f.text_area :memo,
+          rows: 3,
+          placeholder: 'Notes...',
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none' %>
+  </div>
+
+  <%# Action Type %>
+  <div>
+    <p class="text-sm font-medium text-gray-700 mb-2">Action</p>
+    <div class="flex flex-wrap gap-2">
+      <% Item.action_types.each_key do |type| %>
+        <label class="cursor-pointer">
+          <%= f.radio_button :action_type, type, class: 'sr-only peer' %>
+          <span class="px-3 py-1 rounded-full border border-gray-300 text-sm text-gray-600
+                       peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                       transition">
+            <%= t("enums.item.action_type.#{type}") %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Time Bucket %>
+  <div>
+    <p class="text-sm font-medium text-gray-700 mb-2">Time</p>
+    <div class="flex flex-wrap gap-2">
+      <% Item.time_buckets.each_key do |bucket| %>
+        <label class="cursor-pointer">
+          <%= f.radio_button :time_bucket, bucket, class: 'sr-only peer' %>
+          <span class="px-3 py-1 rounded-full border border-gray-300 text-sm text-gray-600
+                       peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                       transition">
+            <%= t("enums.item.time_bucket.#{bucket}") %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Energy %>
+  <div>
+    <p class="text-sm font-medium text-gray-700 mb-2">Energy</p>
+    <div class="flex flex-wrap gap-2">
+      <% Item.energies.each_key do |level| %>
+        <label class="cursor-pointer">
+          <%= f.radio_button :energy, level, class: 'sr-only peer' %>
+          <span class="px-3 py-1 rounded-full border border-gray-300 text-sm text-gray-600
+                       peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600
+                       transition">
+            <%= t("enums.item.energy.#{level}") %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <%= f.submit 'Add Item',
+        class: 'w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold text-sm
+                hover:bg-indigo-700 active:bg-indigo-800 transition cursor-pointer' %>
+<% end %>

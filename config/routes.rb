@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :snoozes, only: [:create]
     resources :completions, only: [:create]
   end
-  resources :items, only: [:index]
+  resources :items, only: [:index, :new, :create]
 
   # Authentication
   get '/login', to: 'sessions#new', as: :login
