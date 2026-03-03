@@ -6,6 +6,10 @@ module SessionHelper
       uid: user.uid,
       info: { email: user.email, name: user.name }
     )
-    get '/auth/google_oauth2/callback'
+    if respond_to?(:visit)
+      visit '/auth/google_oauth2/callback'
+    else
+      get '/auth/google_oauth2/callback'
+    end
   end
 end

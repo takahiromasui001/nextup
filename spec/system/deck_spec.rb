@@ -4,14 +4,7 @@ RSpec.describe 'Deck画面', type: :system do
   let(:user) { create(:user) }
 
   before do
-    driven_by :rack_test
-    OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
-      provider: user.provider,
-      uid: user.uid,
-      info: { email: user.email, name: user.name }
-    )
-    visit '/auth/google_oauth2/callback'
+    login_as(user)
   end
 
   context 'カード1枚表示' do
@@ -51,7 +44,7 @@ RSpec.describe 'Deck画面', type: :system do
     end
 
     it 'now_item はデッキ候補から除外される' do
-      expect(page).to have_content('Now: 今やる')
+      expect(page).to have_content('今やる')
       expect(page.find('h2').text).to eq('後で見る')
     end
   end

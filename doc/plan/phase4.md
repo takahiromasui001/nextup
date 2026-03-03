@@ -24,7 +24,7 @@
   - `http` / `https` スキームのみ許可
 - レスポンス: `{ title: "取得したタイトル" }` or エラー時は空レスポンス（フロントで空のままにする）
 
-## 4-3. StimulusでURLペースト検知 → titleプリフィル
+## 4-3. StimulusでURLペースト検知 → titleプリフィル [DONE]
 
 - Stimulus controller を `url` フィールドにアタッチ
 - `paste` イベントを検知し、ペーストされた値がURL形式かチェック
