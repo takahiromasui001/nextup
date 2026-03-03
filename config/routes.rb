@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :deck do
     resources :pins, only: [:create]
+    resource :pin, only: [:destroy], controller: :pins
     resources :snoozes, only: [:create]
     resources :completions, only: [:create]
   end

@@ -1,7 +1,29 @@
 <turbo-frame id="now_item">
   <% if current_user.now_item %>
-    <div class="mb-2 p-2 bg-green-100 rounded text-sm">
-      Now: <%= current_user.now_item.title %>
+    <% item = current_user.now_item %>
+    <div class="mb-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+      <div class="flex items-center gap-1 text-xs text-gray-500 mb-1">
+        <% if item.action_type %>
+          <span class="px-2 py-0.5 bg-gray-100 rounded-full"><%= I18n.t("enums.item.action_type.#{item.action_type}") %></span>
+        <% end %>
+        <% if item.time_bucket %>
+          <span class="px-2 py-0.5 bg-gray-100 rounded-full"><%= I18n.t("enums.item.time_bucket.#{item.time_bucket}") %></span>
+        <% end %>
+      </div>
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex-1">
+          <p class="text-sm font-semibold text-gray-800"><%= item.title %></p>
+          <% if item.memo.present? %>
+            <p class="text-xs text-gray-500 mt-0.5 whitespace-pre-wrap"><%= item.memo %></p>
+          <% end %>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <%= button_to '外す', deck_pin_path, method: :delete, params: { item_id: item.id },
+                class: 'px-2 py-1 text-xs bg-white border border-gray-300 text-gray-600 rounded-full hover:bg-gray-50' %>
+          <%= button_to '完了', deck_completions_path(item_id: item.id),
+                class: 'px-2 py-1 text-xs bg-green-600 text-white rounded-full hover:bg-green-700' %>
+        </div>
+      </div>
     </div>
   <% end %>
 </turbo-frame>
