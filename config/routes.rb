@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :completions, only: [:create]
   end
   resources :items, only: [:index, :new, :create]
+  resource :title, only: :show
 
   # Authentication
   get '/login', to: 'sessions#new', as: :login

@@ -1,6 +1,6 @@
 # Phase 4: Add（追加）
 
-## 4-1. ItemsController#new / #create — フォームUI
+## 4-1. ItemsController#new / #create — フォームUI [DONE]
 
 - `ItemsController#new`: 空のItemフォームを表示
 - `ItemsController#create`: バリデーション後に保存、Deckへリダイレクト
@@ -14,14 +14,13 @@
 - 任意項目は未選択時にnullで保存
 - バリデーションエラー時: フォームをそのまま再表示
 
-## 4-2. title自動取得API（SSRF対策込み）
+## 4-2. title自動取得API（SSRF対策込み）[DONE]
 
-- `TitlesController#show`（GET `/titles?url=...`）
+- `TitlesController#show`（GET `/title?url=...`）
 - サーバーサイドで対象URLのHTMLを取得し `<title>` を返す
 - SSRF対策:
-  - タイムアウト設定（例: 5秒）
+  - タイムアウト設定（5秒）
   - プライベートIPアドレス・ループバックアドレスへのアクセス禁止
-  - リダイレクト回数制限（最大3回程度）
   - `http` / `https` スキームのみ許可
 - レスポンス: `{ title: "取得したタイトル" }` or エラー時は空レスポンス（フロントで空のままにする）
 
