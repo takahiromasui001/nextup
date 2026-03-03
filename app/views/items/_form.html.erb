@@ -1,10 +1,11 @@
-<%= form_with model: item, class: 'flex flex-col gap-6' do |f| %>
+<%= form_with model: item, class: 'flex flex-col gap-6', data: { controller: 'url-title' } do |f| %>
   <%# Title %>
   <div>
     <%= f.label :title, 'Title', class: 'block text-sm font-medium text-gray-700 mb-1' %>
     <%= f.text_field :title,
           placeholder: 'e.g. Read this article',
-          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400' %>
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400',
+          data: { url_title_target: 'title' } %>
     <% if item.errors[:title].any? %>
       <p class="mt-1 text-xs text-red-500"><%= item.errors[:title].first %></p>
     <% end %>
@@ -15,7 +16,8 @@
     <%= f.label :url, 'URL', class: 'block text-sm font-medium text-gray-700 mb-1' %>
     <%= f.url_field :url,
           placeholder: 'https://...',
-          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400' %>
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400',
+          data: { url_title_target: 'url', action: 'paste->url-title#paste' } %>
   </div>
 
   <%# Memo %>
