@@ -17,13 +17,13 @@ export default class extends Controller {
     this.threshold = 80;
 
     const el = this.element;
-    el.addEventListener('pointerdown', this._onPointerDown.bind(this));
-    el.addEventListener('pointermove', this._onPointerMove.bind(this));
-    el.addEventListener('pointerup', this._onPointerUp.bind(this));
-    el.addEventListener('pointercancel', this._onPointerUp.bind(this));
+    el.addEventListener('pointerdown', this.#onPointerDown.bind(this));
+    el.addEventListener('pointermove', this.#onPointerMove.bind(this));
+    el.addEventListener('pointerup', this.#onPointerUp.bind(this));
+    el.addEventListener('pointercancel', this.#onPointerUp.bind(this));
   }
 
-  _onPointerDown(e) {
+  #onPointerDown(e) {
     this.element.setPointerCapture(e.pointerId);
     this.startX = e.clientX;
     this.startY = e.clientY;
@@ -33,7 +33,7 @@ export default class extends Controller {
     this.element.style.transition = 'none';
   }
 
-  _onPointerMove(e) {
+  #onPointerMove(e) {
     if (!this.dragging) return;
     e.preventDefault();
 
@@ -66,7 +66,7 @@ export default class extends Controller {
     }
   }
 
-  _onPointerUp() {
+  #onPointerUp() {
     if (!this.dragging) return;
     this.dragging = false;
 
@@ -99,18 +99,18 @@ export default class extends Controller {
 
     // 下スワイプ（スヌーズプリセット表示）
     if (absY > absX && absY > this.threshold && this.currentY > 0) {
-      this._resetLabels();
+      this.#resetLabels();
       snapBack(this.element);
       const preset = this.element.querySelector('[data-controller="snooze-preset"]');
       if (preset) preset.classList.remove('hidden');
       return;
     }
 
-    this._resetLabels();
+    this.#resetLabels();
     snapBack(this.element);
   }
 
-  _resetLabels() {
+  #resetLabels() {
     if (this.hasUpLabelTarget) this.upLabelTarget.style.opacity = 0;
     if (this.hasDownLabelTarget) this.downLabelTarget.style.opacity = 0;
   }
