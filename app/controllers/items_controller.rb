@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
   def index
-    @items = current_user.items
+    status = params[:status].presence_in(Item.statuses.keys) || 'active'
+    @status = status
+    @items = current_user.items.where(status: status).order(updated_at: :desc)
   end
 
   def new
