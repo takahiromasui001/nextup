@@ -64,4 +64,38 @@ RSpec.describe 'Items画面', type: :system do
       end
     end
   end
+
+  describe 'URLペースト → title自動入力' do
+    before do
+      driven_by :selenium_chrome_headless
+      login_as(user)
+      visit new_item_path
+    end
+
+    it 'URLをペーストするとtitleが自動入力される' do
+      allow_any_instance_of(Items::TitleFetcher).to receive(:fetch).and_return('自動取得タイトル')
+
+      page.execute_script(<<~JS, find('[data-url-title-target="url"]'))
+        const dt = new DataTransfer();
+        dt.setData('text/plain', 'https://example.com');
+        arguments[0].dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true }));
+      JS
+
+      expect(page).to have_field('Title', with: '自動取得タイトル')
+    end
+
+    it 'titleが入力済みの場合はURLペーストで上書きしない' do
+      allow_any_instance_of(Items::TitleFetcher).to receive(:fetch).and_return('自動取得タイトル')
+
+      fill_in 'Title', with: '既存のタイトル'
+      page.execute_script(<<~JS, find('[data-url-title-target="url"]'))
+        const dt = new DataTransfer();
+        dt.setData('text/plain', 'https://example.com');
+        arguments[0].dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true }));
+      JS
+
+      sleep 1
+      expect(page).to have_field('Title', with: '既存のタイトル')
+    end
+  end
 end

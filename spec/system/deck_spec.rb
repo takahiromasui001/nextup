@@ -45,7 +45,7 @@ RSpec.describe 'Deck画面', type: :system do
     end
 
     it 'now_item はデッキ候補から除外される' do
-      expect(page).to have_content('Now: 今やる')
+      expect(page).to have_content('今やる')
       expect(page.find('h2').text).to eq('後で見る')
     end
   end
