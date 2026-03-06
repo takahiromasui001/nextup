@@ -4,6 +4,7 @@ RSpec.describe 'Deck画面', type: :system do
   let(:user) { create(:user) }
 
   before do
+    driven_by :rack_test
     login_as(user)
   end
 
