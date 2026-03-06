@@ -15,12 +15,17 @@
 - 開閉状態の保存はしない（画面遷移やリロードで閉じた状態に戻る）
 - 展開時の表示項目: title / url（リンク）/ memo / action_type / time_bucket / energy / status / created_at
 
-## 5-3. アイテムの更新
+## 5-3. URLペースト時のローディング表示
+
+- URLフィールドにURLをペーストしてタイトル取得中、タイトルフィールド付近にローディング表示（例: 「タイトルを取得中...」）
+- 取得完了（成功・失敗問わず）で非表示にする
+
+## 5-4. アイテムの更新
 
 - `ItemsController#edit` / `#update`: 編集フォーム
   - 編集可能: title / url / memo / action_type / time_bucket / energy
 
-## 5-4. アーカイブ
+## 5-5. アーカイブ
 
 - `ArchivesController#create`（archiveの唯一の導線）
 - `status` が `active` または `snoozed` の場合のみ表示（`done` のItemには出さない）
@@ -29,7 +34,7 @@
 - トースト:「アーカイブしました」
 - 実行後: Items画面へリダイレクト
 
-## 5-5. PWAマニフェスト（ホーム画面追加のみ）
+## 5-6. PWAマニフェスト（ホーム画面追加のみ）
 
 - `public/manifest.json` を作成
   - `name` / `short_name` / `icons` / `start_url` / `display: standalone` / `theme_color`

@@ -9,29 +9,81 @@ RSpec.describe 'Items画面', type: :system do
   end
 
   describe '一覧' do
-    let!(:active_item)  { create(:item, user: user, status: :active) }
-    let!(:snoozed_item) { create(:item, user: user, status: :snoozed) }
+    let!(:active_item)   { create(:item, user: user, status: :active) }
+    let!(:snoozed_item)  { create(:item, user: user, status: :snoozed) }
+    let!(:done_item)     { create(:item, user: user, status: :done) }
+    let!(:archived_item) { create(:item, user: user, status: :archived) }
 
     before { visit items_path }
 
     context 'デフォルト（status未指定）' do
-      it 'activeアイテムが表示される' do
+      it 'activeアイテムのみ表示される' do
         expect(page).to have_content(active_item.title)
         expect(page).not_to have_content(snoozed_item.title)
+        expect(page).not_to have_content(done_item.title)
+        expect(page).not_to have_content(archived_item.title)
+      end
+
+      it '1件表示される' do
+        expect(page).to have_css('.bg-white.rounded-xl', count: 1)
       end
     end
 
-    context 'タブ切り替え' do
-      it 'あとでタブをクリックするとsnoozedアイテムが表示される' do
-        click_link 'あとで'
+    context 'あとでタブ' do
+      before { click_link 'あとで' }
+
+      it 'snoozedアイテムのみ表示される' do
         expect(page).to have_content(snoozed_item.title)
         expect(page).not_to have_content(active_item.title)
       end
+
+      it '1件表示される' do
+        expect(page).to have_css('.bg-white.rounded-xl', count: 1)
+      end
     end
 
-    context '空のタブ' do
-      it '完了タブは空メッセージを表示する' do
+    context '完了タブ' do
+      before { click_link '完了' }
+
+      it 'doneアイテムのみ表示される' do
+        expect(page).to have_content(done_item.title)
+        expect(page).not_to have_content(active_item.title)
+      end
+
+      it '1件表示される' do
+        expect(page).to have_css('.bg-white.rounded-xl', count: 1)
+      end
+    end
+
+    context 'アーカイブタブ' do
+      before { click_link 'アーカイブ' }
+
+      it 'archivedアイテムのみ表示される' do
+        expect(page).to have_content(archived_item.title)
+        expect(page).not_to have_content(active_item.title)
+      end
+
+      it '1件表示される' do
+        expect(page).to have_css('.bg-white.rounded-xl', count: 1)
+      end
+    end
+
+    context '空のタブ（該当アイテムなし）' do
+      let!(:active_item)   { nil }
+      let!(:snoozed_item)  { nil }
+      let!(:done_item)     { nil }
+      let!(:archived_item) { nil }
+
+      it '全タブで空メッセージが表示される' do
+        expect(page).to have_content('アイテムがありません')
+
+        click_link 'あとで'
+        expect(page).to have_content('アイテムがありません')
+
         click_link '完了'
+        expect(page).to have_content('アイテムがありません')
+
+        click_link 'アーカイブ'
         expect(page).to have_content('アイテムがありません')
       end
     end
