@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resources :snoozes, only: [:create]
     resources :completions, only: [:create]
   end
-  resources :items, only: [:index, :new, :create, :edit, :update]
+  resources :items, only: [:index, :new, :create, :edit, :update] do
+    resource :archive, only: [:create], module: :items
+  end
   resource :title, only: :show
 
   # Authentication

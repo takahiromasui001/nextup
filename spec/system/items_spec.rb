@@ -147,6 +147,38 @@ RSpec.describe 'Items画面', type: :system do
     end
   end
 
+  describe 'アーカイブ' do
+    before do
+      driven_by :selenium_chrome_headless
+      login_as(user)
+    end
+
+    context 'activeアイテム' do
+      let!(:item) { create(:item, user: user, status: :active) }
+
+      it '詳細を開くとアーカイブボタンが表示され、押すとアイテムが消えトーストが表示される' do
+        visit items_path
+        find("[data-item-detail-target='icon']").click
+        click_button 'アーカイブ'
+
+        expect(page).not_to have_css("#item_#{item.id}")
+        expect(page).to have_content('アーカイブしました')
+        expect(item.reload.status).to eq('archived')
+      end
+    end
+
+    context 'doneアイテム' do
+      let!(:item) { create(:item, user: user, status: :done) }
+
+      it 'アーカイブボタンが表示されない' do
+        visit items_path(status: 'done')
+        find("[data-item-detail-target='icon']").click
+
+        expect(page).not_to have_button('アーカイブ')
+      end
+    end
+  end
+
   describe 'URLペースト → title自動入力' do
     before do
       driven_by :selenium_chrome_headless
