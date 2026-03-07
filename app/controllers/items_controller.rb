@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :set_item, only: [:edit, :update]
+
   def index
     status = params[:status].presence_in(Item.statuses.keys) || 'active'
     @status = status
@@ -18,7 +20,21 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @item.update(item_params)
+      redirect_to params[:return_to] == 'deck' ? deck_path : items_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def set_item
+    @item = current_user.items.find(params[:id])
+  end
 
   def item_params
     params.require(:item).permit(:title, :url, :memo, :action_type, :time_bucket, :energy)
