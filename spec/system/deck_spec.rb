@@ -48,6 +48,24 @@ RSpec.describe 'Deck画面', type: :system do
       expect(page).to have_content('今やる')
       expect(page.find('h2').text).to eq('後で見る')
     end
+
+    context 'now_item の編集' do
+      before do
+        driven_by :selenium_chrome_headless
+        login_as(user)
+        user.update!(now_item: now_item)
+        visit deck_path
+        find("a[href='#{edit_item_path(now_item, return_to: 'deck')}']").click
+      end
+
+      it 'タイトルを変更して保存するとdeck画面に戻る' do
+        fill_in 'Title', with: '更新後のタイトル'
+        click_button '保存'
+
+        expect(page).to have_current_path(deck_path)
+        expect(page).to have_content('更新後のタイトル')
+      end
+    end
   end
 
   context '空状態' do
