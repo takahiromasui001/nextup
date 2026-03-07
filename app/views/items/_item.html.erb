@@ -1,9 +1,28 @@
-<div class="bg-white rounded-xl shadow-sm px-4 py-3 mb-2">
-  <p class="text-sm font-medium text-gray-900 truncate"><%= item.title %></p>
+<div class="bg-white rounded-xl shadow-sm px-4 py-3 mb-2" data-controller="item-detail">
+  <div class="flex items-center justify-between">
+    <p class="text-sm font-medium text-gray-900 truncate flex-1"><%= item.title %></p>
+    <button data-action="item-detail#toggle" class="ml-2 text-xs text-blue-500">詳細</button>
+  </div>
   <div class="flex items-center gap-2 mt-1 text-xs text-gray-500">
     <span><%= I18n.t("enums.item.action_type.#{item.action_type}") %></span>
     <span>·</span>
     <span><%= I18n.t("enums.item.time_bucket.#{item.time_bucket}") %></span>
     <span class="ml-auto"><%= l(item.updated_at, format: :short) %></span>
+  </div>
+
+  <div data-item-detail-target="detail" class="hidden mt-3 pt-3 border-t border-gray-100 text-xs text-gray-700 space-y-1">
+    <% if item.url.present? %>
+      <p><a href="<%= item.url %>" target="_blank" class="text-blue-500 underline truncate block"><%= item.url %></a></p>
+    <% end %>
+    <% if item.memo.present? %>
+      <p class="whitespace-pre-wrap"><%= item.memo %></p>
+    <% end %>
+    <div class="flex flex-wrap gap-2 mt-1 text-gray-500">
+      <span><%= I18n.t("enums.item.energy.#{item.energy}") %></span>
+      <span>·</span>
+      <span><%= I18n.t("enums.item.status.#{item.status}") %></span>
+      <span>·</span>
+      <span><%= l(item.created_at, format: :short) %></span>
+    </div>
   </div>
 </div>

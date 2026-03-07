@@ -6,6 +6,7 @@
           placeholder: 'e.g. Read this article',
           class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400',
           data: { url_title_target: 'title' } %>
+    <p data-url-title-target="loading" class="hidden mt-1 text-xs text-gray-400">タイトルを取得中...</p>
     <% if item.errors[:title].any? %>
       <p class="mt-1 text-xs text-red-500"><%= item.errors[:title].first %></p>
     <% end %>
