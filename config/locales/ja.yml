@@ -60,3 +60,4 @@ ja:
     pin_destroyed: 'Nowを外しました'
     snoozed: '%{until}までスヌーズしました'
     done: '完了しました'
+    archived: 'アーカイブしました'

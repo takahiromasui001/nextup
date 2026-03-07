@@ -1,0 +1,4 @@
+<%= turbo_stream.remove @item %>
+<%= turbo_stream.append 'toast_container' do %>
+  <%= render 'shared/toast', message: t('flash.archived') %>
+<% end %>
