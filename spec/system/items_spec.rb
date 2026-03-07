@@ -124,8 +124,7 @@ RSpec.describe 'Items画面', type: :system do
       driven_by :selenium_chrome_headless
       login_as(user)
       visit items_path
-      click_button '詳細'
-      click_link '編集'
+      find("a[href='#{edit_item_path(item)}']").click
     end
 
     context '正常系' do

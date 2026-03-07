@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to items_path
+      redirect_to params[:return_to] == 'deck' ? deck_path : items_path
     else
       render :edit, status: :unprocessable_entity
     end

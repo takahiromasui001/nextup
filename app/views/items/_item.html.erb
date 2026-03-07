@@ -1,7 +1,12 @@
 <div class="bg-white rounded-xl shadow-sm px-4 py-3 mb-2" data-controller="item-detail">
   <div class="flex items-center justify-between">
     <p class="text-sm font-medium text-gray-900 truncate flex-1"><%= item.title %></p>
-    <button data-action="item-detail#toggle" class="ml-2 text-xs text-blue-500">詳細</button>
+    <div class="flex items-center gap-2 ml-2 shrink-0">
+      <%= link_to edit_item_path(item), class: 'text-indigo-400 hover:text-indigo-600', data: { turbo_frame: '_top' } do %>
+        <%= render 'shared/icon_edit' %>
+      <% end %>
+      <button data-action="item-detail#toggle" class="text-xs text-blue-500">詳細</button>
+    </div>
   </div>
   <div class="flex items-center gap-2 mt-1 text-xs text-gray-500">
     <span><%= I18n.t("enums.item.action_type.#{item.action_type}") %></span>
@@ -24,6 +29,5 @@
       <span>·</span>
       <span><%= l(item.created_at, format: :short) %></span>
     </div>
-    <%= link_to '編集', edit_item_path(item), class: 'text-indigo-500 text-xs', data: { turbo_frame: '_top' } %>
   </div>
 </div>
