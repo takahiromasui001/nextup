@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#show'
+  root 'deck#show'
 
   resource :deck, only: :show, controller: :deck do
     resources :cards, only: :show, module: :deck, param: :position

@@ -20,12 +20,12 @@
 - URLフィールドにURLをペーストしてタイトル取得中、タイトルフィールド付近にローディング表示（例: 「タイトルを取得中...」）
 - 取得完了（成功・失敗問わず）で非表示にする
 
-## 5-4. アイテムの更新
+## 5-4. アイテムの更新 [DONE]
 
 - `ItemsController#edit` / `#update`: 編集フォーム
   - 編集可能: title / url / memo / action_type / time_bucket / energy
 
-## 5-5. アーカイブ
+## 5-5. アーカイブ [DONE]
 
 - `ArchivesController#create`（archiveの唯一の導線）
 - `status` が `active` または `snoozed` の場合のみ表示（`done` のItemには出さない）
