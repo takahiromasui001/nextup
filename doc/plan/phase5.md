@@ -1,6 +1,6 @@
 # Phase 5: 一覧・詳細・仕上げ
 
-## 5-1. Items画面（全status タブ切替）
+## 5-1. Items画面（全status タブ切替） [DONE]
 
 - `ItemsController#index`
 - タブで status を切り替え: active / snoozed / done / archived（デフォルト: active）
