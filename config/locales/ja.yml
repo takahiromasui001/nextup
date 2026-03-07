@@ -49,6 +49,11 @@ ja:
       tomorrow: '明日'
       weekend: '週末'
       next_week: '来週'
+  helpers:
+    submit:
+      item:
+        create: 'アイテムを追加'
+        update: '保存'
   flash:
     pin_created: 'Nowにセットしました'
     pin_replaced: 'Nowを入れ替えました'

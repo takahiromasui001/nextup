@@ -24,5 +24,6 @@
       <span>·</span>
       <span><%= l(item.created_at, format: :short) %></span>
     </div>
+    <%= link_to '編集', edit_item_path(item), class: 'text-indigo-500 text-xs', data: { turbo_frame: '_top' } %>
   </div>
 </div>

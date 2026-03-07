@@ -98,7 +98,7 @@ RSpec.describe 'Items画面', type: :system do
         find('label', text: '読む').click
         find('label', text: '5分').click
         find('label', text: '低').click
-        click_button 'Add Item'
+        click_button 'アイテムを追加'
 
         expect(page).to have_current_path(deck_path)
         expect(user.items.find_by(title: '新しいアイテム')).to be_present
@@ -110,7 +110,38 @@ RSpec.describe 'Items画面', type: :system do
         find('label', text: '読む').click
         find('label', text: '5分').click
         find('label', text: '低').click
-        click_button 'Add Item'
+        click_button 'アイテムを追加'
+
+        expect(page).to have_content('を入力してください')
+      end
+    end
+  end
+
+  describe '編集' do
+    let!(:item) { create(:item, user: user, title: '元のタイトル') }
+
+    before do
+      driven_by :selenium_chrome_headless
+      login_as(user)
+      visit items_path
+      click_button '詳細'
+      click_link '編集'
+    end
+
+    context '正常系' do
+      it 'タイトルを変更して保存するとitems画面に戻り更新済みタイトルが表示される' do
+        fill_in 'Title', with: '更新後のタイトル'
+        click_button '保存'
+
+        expect(page).to have_current_path(items_path)
+        expect(page).to have_content('更新後のタイトル')
+      end
+    end
+
+    context 'タイトルを空にして保存' do
+      it 'バリデーションエラーが表示される' do
+        fill_in 'Title', with: ''
+        click_button '保存'
 
         expect(page).to have_content('を入力してください')
       end
