@@ -158,7 +158,7 @@ RSpec.describe 'Items画面', type: :system do
 
       it '詳細を開くとアーカイブボタンが表示され、押すとアイテムが消えトーストが表示される' do
         visit items_path
-        find("[data-item-detail-target='icon']").click
+        find("button[data-action='item-detail#toggle']").click
         click_button 'アーカイブ'
 
         expect(page).not_to have_css("#item_#{item.id}")
@@ -172,7 +172,7 @@ RSpec.describe 'Items画面', type: :system do
 
       it 'アーカイブボタンが表示されない' do
         visit items_path(status: 'done')
-        find("[data-item-detail-target='icon']").click
+        find("button[data-action='item-detail#toggle']").click
 
         expect(page).not_to have_button('アーカイブ')
       end
