@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['url', 'title']
+  static targets = ['url', 'title', 'loading']
 
   paste(event) {
     const pasted = (event.clipboardData || window.clipboardData).getData('text')
@@ -21,6 +21,7 @@ export default class extends Controller {
   }
 
   async #fetchTitle(url) {
+    this.loadingTarget.classList.remove('hidden')
     try {
       const res = await fetch(`/title?url=${encodeURIComponent(url)}`)
       if (!res.ok) return
@@ -31,6 +32,8 @@ export default class extends Controller {
       }
     } catch {
       // 取得失敗時は何もしない
+    } finally {
+      this.loadingTarget.classList.add('hidden')
     }
   }
 }
