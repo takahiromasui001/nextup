@@ -34,7 +34,7 @@
 - トースト:「アーカイブしました」
 - 実行後: Items画面へリダイレクト
 
-## 5-6. PWAマニフェスト（ホーム画面追加のみ）
+## 5-6. PWAマニフェスト（ホーム画面追加のみ） [DONE]
 
 - `public/manifest.json` を作成
   - `name` / `short_name` / `icons` / `start_url` / `display: standalone` / `theme_color`
