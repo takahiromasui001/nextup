@@ -1,0 +1,5 @@
+<% if item.url.present? %>
+  <%= link_to item.title, item.url, target: '_blank', rel: 'noopener', class: "#{title_class} text-blue-600 hover:underline" %>
+<% else %>
+  <span class="<%= title_class %>"><%= item.title %></span>
+<% end %>

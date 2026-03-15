@@ -15,7 +15,7 @@
           <%= render 'shared/icon_edit' %>
         <% end %>
       </div>
-      <p class="text-sm font-semibold text-gray-800"><%= item.title %></p>
+      <p class="text-sm font-semibold"><%= render 'shared/item_title', item: item, title_class: '' %></p>
       <% if item.memo.present? %>
         <p class="text-xs text-gray-500 mt-0.5 whitespace-pre-wrap"><%= item.memo %></p>
       <% end %>
