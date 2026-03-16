@@ -35,6 +35,30 @@ RSpec.describe 'Deck画面', type: :system do
     end
   end
 
+  context 'now_item にURLがある場合' do
+    let!(:now_item) { create(:item, user:, title: '今やる', url: 'https://example.com') }
+
+    before do
+      user.update!(now_item: now_item)
+      visit deck_path
+    end
+
+    it 'タイトルがリンクになる' do
+      expect(page).to have_link('今やる', href: 'https://example.com')
+    end
+  end
+
+  context 'カードにURLがある場合' do
+    before do
+      create(:item, user:, title: 'リンク付き記事', url: 'https://example.com')
+      visit deck_path
+    end
+
+    it 'タイトルがリンクになる' do
+      expect(page).to have_link('リンク付き記事', href: 'https://example.com')
+    end
+  end
+
   context 'now_item がある場合' do
     let!(:now_item) { create(:item, user:, title: '今やる', action_type: :read, energy: :low) }
     let!(:deck_item) { create(:item, user:, title: '後で見る', action_type: :watch, energy: :high) }

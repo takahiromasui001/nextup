@@ -68,6 +68,16 @@ RSpec.describe 'Items画面', type: :system do
       end
     end
 
+    context 'URLがあるアイテム' do
+      let!(:item_with_url) { create(:item, user:, title: 'リンク付き', url: 'https://example.com', status: :active) }
+
+      before { visit items_path }
+
+      it 'タイトルがリンクになる' do
+        expect(page).to have_link('リンク付き', href: 'https://example.com')
+      end
+    end
+
     context '空のタブ（該当アイテムなし）' do
       let!(:active_item)   { nil }
       let!(:snoozed_item)  { nil }

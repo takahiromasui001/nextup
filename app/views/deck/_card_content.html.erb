@@ -6,7 +6,7 @@
 </div>
 
 <div class="flex-1 flex flex-col items-center justify-center gap-2">
-  <h2 class="text-xl font-bold text-gray-800 text-center"><%= @card.title %></h2>
+  <h2 class="text-xl font-bold text-center"><%= render 'shared/item_title', item: @card %></h2>
   <% if @card.memo.present? %>
     <p class="text-sm text-gray-500 text-center whitespace-pre-wrap"><%= @card.memo %></p>
   <% end %>
@@ -21,9 +21,6 @@
   <div class="flex items-center gap-3">
     <%= button_to '完了', deck_completions_path(item_id: @card.id),
           class: 'px-3 py-1 text-xs bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300' %>
-    <% if @card.url.present? %>
-      <%= link_to 'Link', @card.url, target: '_blank', rel: 'noopener', class: 'text-xs text-blue-500 underline' %>
-    <% end %>
   </div>
 </div>
 

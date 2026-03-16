@@ -1,6 +1,6 @@
 <div id="<%= dom_id(item) %>" class="bg-white rounded-xl shadow-sm px-4 py-3 mb-2" data-controller="item-detail">
   <div class="flex items-center justify-between">
-    <p class="text-sm font-medium text-gray-900 truncate flex-1"><%= item.title %></p>
+    <p class="text-sm font-medium truncate flex-1"><%= render 'shared/item_title', item: item %></p>
     <div class="flex items-center gap-2 ml-2 shrink-0">
       <%= link_to edit_item_path(item), class: 'text-indigo-400 hover:text-indigo-600', data: { turbo_frame: '_top' } do %>
         <%= render 'shared/icon_edit' %>
