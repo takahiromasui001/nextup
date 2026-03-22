@@ -19,8 +19,11 @@
     <% end %>
   </div>
   <div class="flex items-center gap-3">
+    <%= link_to edit_item_path(@card, return_to: 'deck'), class: 'text-indigo-400 hover:text-indigo-600', data: { turbo_frame: '_top' } do %>
+      <%= render 'shared/icon_edit' %>
+    <% end %>
     <%= button_to '完了', deck_completions_path(item_id: @card.id),
-          class: 'px-3 py-1 text-xs bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300' %>
+          class: 'px-3 py-1 text-xs bg-green-600 text-white rounded-full hover:bg-green-700' %>
   </div>
 </div>
 
