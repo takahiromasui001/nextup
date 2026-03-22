@@ -5,7 +5,7 @@
     <%= f.label :title, 'Title', class: 'block text-sm font-medium text-gray-700 mb-1' %>
     <%= f.text_field :title,
           placeholder: 'e.g. Read this article',
-          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400',
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-indigo-400',
           data: { url_title_target: 'title' } %>
     <p data-url-title-target="loading" class="hidden mt-1 text-xs text-gray-400">タイトルを取得中...</p>
     <% if item.errors[:title].any? %>
@@ -18,7 +18,7 @@
     <%= f.label :url, 'URL', class: 'block text-sm font-medium text-gray-700 mb-1' %>
     <%= f.url_field :url,
           placeholder: 'https://...',
-          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400',
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-indigo-400',
           data: { url_title_target: 'url', action: 'paste->url-title#paste' } %>
   </div>
 
@@ -28,7 +28,7 @@
     <%= f.text_area :memo,
           rows: 3,
           placeholder: 'Notes...',
-          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none' %>
+          class: 'w-full border border-gray-300 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none' %>
   </div>
 
   <%# Action Type %>
