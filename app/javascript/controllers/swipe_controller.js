@@ -24,6 +24,9 @@ export default class extends Controller {
   }
 
   #onPointerDown(e) {
+    // リンクやボタン等のクリックを優先し、スワイプを開始しない
+    if (e.target.closest('a, button, input, select, textarea, [data-turbo-frame]')) return;
+
     this.element.setPointerCapture(e.pointerId);
     this.startX = e.clientX;
     this.startY = e.clientY;
